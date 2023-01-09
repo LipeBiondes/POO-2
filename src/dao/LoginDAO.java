@@ -30,9 +30,11 @@ public class LoginDAO {
            stmt.setString(2, login.getSenha());
            stmt.setString(3, login.getFrase());
            stmt.execute();
+           JOptionPane.showMessageDialog(null, "Sucesso!");
        }
        catch(Exception e){
            System.out.println("Erro ao inserir login: " +e);
+           JOptionPane.showMessageDialog(null, "Erro!");
        }
    }
    

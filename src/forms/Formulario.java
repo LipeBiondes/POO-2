@@ -5,12 +5,21 @@
 package forms;
 import beans.Login;
 import dao.LoginDAO;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Alefe Filipe
  */
 public class Formulario extends javax.swing.JFrame {
+    private int clicada = 0;
 
+    public int getClicada() {
+        return clicada;
+    }
+
+    public void setClicada(int clicada) {
+        this.clicada = clicada;
+    }
     /**
      * Creates new form Formulario
      */
@@ -46,12 +55,24 @@ public class Formulario extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Frase:");
 
+        BtnCadastrar.setBackground(new java.awt.Color(51, 255, 0));
         BtnCadastrar.setText("Cadastrar");
         BtnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCadastrarActionPerformed(evt);
             }
         });
+
+        txtNome.setText("Ex. Ismael");
+        txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNomeMouseClicked(evt);
+            }
+        });
+
+        txtFrase.setText("Ex. \"Olá Mundo!\"");
+
+        txtSenha.setText("*********");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,11 +88,11 @@ public class Formulario extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFrase, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(366, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtFrase, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +111,7 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(txtFrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnCadastrar)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,19 +122,37 @@ public class Formulario extends javax.swing.JFrame {
         String senha = txtSenha.getText();
         String frase = txtFrase.getText();
         
-        Login login = new Login();
-        
-        login.setNome(nome);
-        login.setSenha(senha);
-        login.setFrase(frase);
-        
-        LoginDAO loginDAO = new LoginDAO();
-        loginDAO.inserir(login);
-        
-        txtNome.setText("");
-        txtSenha.setText("");
-        txtFrase.setText("");
+        if ("".equals(nome) || "".equals(senha) || "".equals(frase)) {
+            txtNome.setText("");
+            txtSenha.setText("");
+            txtFrase.setText("");
+            JOptionPane.showMessageDialog(null, "Erro, Preencha os campos vazios!");
+        }else{
+            
+            Login login = new Login();
+
+            login.setNome(nome);
+            login.setSenha(senha);
+            login.setFrase(frase);
+
+            LoginDAO loginDAO = new LoginDAO();
+            loginDAO.inserir(login);
+
+            txtNome.setText("");
+            txtSenha.setText("");
+            txtFrase.setText("");}
     }//GEN-LAST:event_BtnCadastrarActionPerformed
+
+    private void txtNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMouseClicked
+        if (getClicada()==0) {
+            txtNome.setText("");
+            txtSenha.setText("");
+            txtFrase.setText("");
+            setClicada(1);
+        } else {
+        }
+        
+    }//GEN-LAST:event_txtNomeMouseClicked
 
     /**
      * @param args the command line arguments

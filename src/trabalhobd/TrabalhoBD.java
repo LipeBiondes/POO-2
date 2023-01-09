@@ -12,7 +12,7 @@ public class TrabalhoBD {
      */
     public static void main(String[] args) {
         Formulario a = new Formulario();
-       
+       a.setVisible(true);
     }
     
 }
