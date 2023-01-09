@@ -11,15 +11,6 @@ import javax.swing.JOptionPane;
  * @author Alefe Filipe
  */
 public class Formulario extends javax.swing.JFrame {
-    private int clicada = 0;
-
-    public int getClicada() {
-        return clicada;
-    }
-
-    public void setClicada(int clicada) {
-        this.clicada = clicada;
-    }
     /**
      * Creates new form Formulario
      */
@@ -43,6 +34,9 @@ public class Formulario extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         txtFrase = new javax.swing.JTextField();
         txtSenha = new javax.swing.JTextField();
+        BtnPesquisar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtIdPesquisa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +49,6 @@ public class Formulario extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Frase:");
 
-        BtnCadastrar.setBackground(new java.awt.Color(51, 255, 0));
         BtnCadastrar.setText("Cadastrar");
         BtnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,41 +56,66 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        txtNome.setText("Ex. Ismael");
+        txtNome.setEditable(false);
         txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtNomeMouseClicked(evt);
             }
         });
 
-        txtFrase.setText("Ex. \"Olá Mundo!\"");
+        txtFrase.setEditable(false);
 
-        txtSenha.setText("*********");
+        txtSenha.setEditable(false);
+
+        BtnPesquisar.setText("Pesquisar");
+        BtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Pesquisar Cadastro pelo ID:");
+
+        txtIdPesquisa.setEditable(false);
+        txtIdPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIdPesquisaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BtnCadastrar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(txtFrase, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))
-                .addContainerGap(124, Short.MAX_VALUE))
+                        .addComponent(txtIdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(BtnCadastrar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFrase)
+                                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(BtnPesquisar))))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,48 +129,91 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(txtFrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnCadastrar)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtIdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(BtnPesquisar)
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCadastrarActionPerformed
-        String nome = txtNome.getText();
-        String senha = txtSenha.getText();
-        String frase = txtFrase.getText();
-        
-        if ("".equals(nome) || "".equals(senha) || "".equals(frase)) {
-            txtNome.setText("");
-            txtSenha.setText("");
-            txtFrase.setText("");
-            JOptionPane.showMessageDialog(null, "Erro, Preencha os campos vazios!");
-        }else{
-            
-            Login login = new Login();
+//        Verificando se o botão Cadastrar foi precionado
+        if (txtNome.isEditable() && txtSenha.isEditable() && txtFrase.isEditable()) {
+                String nome = txtNome.getText();
+                String senha = txtSenha.getText();
+                String frase = txtFrase.getText();
+//              Verificando se existe campos em branco
+            if ("".equals(nome) || "".equals(senha) || "".equals(frase)) {
+                txtNome.setText("");
+                txtSenha.setText("");
+                txtFrase.setText("");
+                JOptionPane.showMessageDialog(null, "Erro, Preencha os campos vazios!");
+            }else{
 
-            login.setNome(nome);
-            login.setSenha(senha);
-            login.setFrase(frase);
+                Login login = new Login();
 
-            LoginDAO loginDAO = new LoginDAO();
-            loginDAO.inserir(login);
+                login.setNome(nome);
+                login.setSenha(senha);
+                login.setFrase(frase);
 
-            txtNome.setText("");
-            txtSenha.setText("");
-            txtFrase.setText("");}
+                LoginDAO loginDAO = new LoginDAO();
+                loginDAO.inserir(login);
+
+                txtNome.setText("");
+                txtSenha.setText("");
+                txtFrase.setText("");
+            }
+        } else {
+                txtNome.setText("");
+                txtSenha.setText("");
+                txtFrase.setText("");
+                txtIdPesquisa.setText("");
+                
+                txtNome.setEditable(true);
+                txtSenha.setEditable(true);
+                txtFrase.setEditable(true);
+                txtIdPesquisa.setEditable(false);
+        }
     }//GEN-LAST:event_BtnCadastrarActionPerformed
 
     private void txtNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMouseClicked
-        if (getClicada()==0) {
-            txtNome.setText("");
-            txtSenha.setText("");
-            txtFrase.setText("");
-            setClicada(1);
-        } else {
-        }
-        
+
     }//GEN-LAST:event_txtNomeMouseClicked
+
+    private void BtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPesquisarActionPerformed
+//        Verificando se o botão Cadastrar foi precionado
+        if (txtNome.isEditable()  == false && txtSenha.isEditable()  == false && txtFrase.isEditable() == false && txtIdPesquisa.isEditable()) {
+              int idPesquisa = Integer.parseInt(txtIdPesquisa.getText());
+              LoginDAO loginDao = new LoginDAO();
+              Login login = loginDao.getLogin(idPesquisa);
+              if (login == null) {
+                JOptionPane.showMessageDialog(null, "Erro! id não encontrado.");
+            } else {
+                  txtNome.setText(login.getNome());
+                  txtSenha.setText(login.getSenha());
+                  txtFrase.setText(login.getFrase());
+            }
+              
+        } else {
+                txtIdPesquisa.setEditable(true);
+                txtNome.setEditable(false);
+                txtSenha.setEditable(false);
+                txtFrase.setEditable(false);
+                
+                txtNome.setText("");
+                txtSenha.setText("");
+                txtFrase.setText("");
+        }
+    }//GEN-LAST:event_BtnPesquisarActionPerformed
+
+    private void txtIdPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdPesquisaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdPesquisaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -191,10 +252,13 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCadastrar;
+    private javax.swing.JButton BtnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtFrase;
+    private javax.swing.JTextField txtIdPesquisa;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables

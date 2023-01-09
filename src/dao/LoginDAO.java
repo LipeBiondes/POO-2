@@ -55,8 +55,8 @@ public class LoginDAO {
             return login;
        } catch (Exception e) {
            System.out.println("Erro ao consultar login: " +e);
-           JOptionPane.showMessageDialog(null, "Erro!");
+           return null;
        }
-       return null;
    }
+   
 }
